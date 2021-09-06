@@ -11,7 +11,7 @@ public class DeviceTest {
     Device underTest;
 
     @Test
-    public void deviceAllArgsTests(){
+    void deviceAllArgsTests(){
         UUID expectedId = UUID.randomUUID();
         String expectedName = "underTest Name";
         String expectedBrand = "underTest Brand";
@@ -25,7 +25,7 @@ public class DeviceTest {
     }
 
     @Test
-    public void deviceNoArgsTests(){
+    void deviceNoArgsTests(){
         underTest = new Device();
         assertThat( underTest.getId() ).isNull();
         assertThat( underTest.getName() ).isNull();
