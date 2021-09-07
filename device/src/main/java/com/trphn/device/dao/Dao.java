@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.UUID;
 
 public interface Dao<T> {
-    T save(T t);
+    T create(T t);
     Collection<T> findAll();
     T findById(UUID id);
     T update(T t);
-    void delete(UUID t);
+    void deleteById(UUID t);
     Collection<T> filter(String brand, String name);
 }

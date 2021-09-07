@@ -1,10 +1,8 @@
 package com.trphn.device.dao.impl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,7 +25,7 @@ public class JpaDeviceDao implements Dao<Device>{
 
     @Override
     @Transactional
-    public Device save(Device device) {
+    public Device create(Device device) {
        log.info("JpaDeviceDao - Save {}", device);
         entityManager.persist(device);
         entityManager.flush();
@@ -52,8 +50,8 @@ public class JpaDeviceDao implements Dao<Device>{
     @Override
     public Collection<Device> findAll() {
         log.info("JpaDeviceDao - findAll");
-        Query query = entityManager.createQuery("SELECT d FROM Device d");
-        return castList(query.getResultList(), Device.class);
+        Query query = entityManager.createQuery("SELECT d FROM Device d", Device.class);
+        return query.getResultList();
     }
 
     @Override
@@ -64,7 +62,7 @@ public class JpaDeviceDao implements Dao<Device>{
 
     @Override
     @Transactional
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         log.info("JpaDeviceDao - delete {}", id);
         Device device = findById(id);
         entityManager.remove(device);
@@ -87,7 +85,7 @@ public class JpaDeviceDao implements Dao<Device>{
             query += condition + "D.name like CONCAT('%',:name,'%')";
         }
 
-        Query q = entityManager.createQuery(query);
+        Query q = entityManager.createQuery(query, Device.class);
         
         if(brand!=null){
            q.setParameter("brand", brand);
@@ -97,13 +95,7 @@ public class JpaDeviceDao implements Dao<Device>{
             q.setParameter("name", name);
         }
 
-        return castList(q.getResultList(), Device.class );
-    }
-
-    private <T> Collection <T> castList(Collection<?> c, Class<? extends T> clazz) { 
-        return c.isEmpty() 
-            ? new ArrayList<T>()
-            : c.stream().map(clazz::cast).collect(Collectors.toSet());
+        return q.getResultList();
     }
     
 }

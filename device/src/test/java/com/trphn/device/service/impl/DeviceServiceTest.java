@@ -29,7 +29,7 @@ public class DeviceServiceTest {
         UUID id = UUID.randomUUID();
         underTest.deleteById(id);
         ArgumentCaptor<UUID> deviceCaptor = ArgumentCaptor.forClass(UUID.class);
-        verify(deviceDao).delete(deviceCaptor.capture());
+        verify(deviceDao).deleteById(deviceCaptor.capture());
         assertThat(deviceCaptor.getValue()).isEqualTo(id);
     }
 
@@ -61,14 +61,14 @@ public class DeviceServiceTest {
     }
 
     @Test
-    void testSave() {
+    void testCreate() {
         Device device = new Device();
         device.setName("UnderDeleteTestDeviceName");
         device.setBrand("UnderDeleteTestDeviceBrand");
 
-        underTest.save(device);
+        underTest.create(device);
         ArgumentCaptor<Device> deviceCaptor = ArgumentCaptor.forClass(Device.class);
-        verify(deviceDao).save(deviceCaptor.capture());
+        verify(deviceDao).create(deviceCaptor.capture());
         assertThat(deviceCaptor.getValue()).isEqualTo(device);
     }
 

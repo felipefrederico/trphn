@@ -19,9 +19,9 @@ public class DeviceService implements IService<Device>{
     private final Dao<Device> deviceDao;
 
     @Override
-    public Device save(Device device) {
+    public Device create(Device device) {
         log.info("DeviceService - save {}", device.toString());
-        return deviceDao.save(device);
+        return deviceDao.create(device);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class DeviceService implements IService<Device>{
     @Override
     public void deleteById(UUID id) {
         log.info("DeviceService - deleteById {}", id.toString());
-        deviceDao.delete(id);
+        deviceDao.deleteById(id);
     }
 
     @Override

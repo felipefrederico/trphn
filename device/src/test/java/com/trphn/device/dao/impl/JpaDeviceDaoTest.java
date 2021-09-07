@@ -17,14 +17,14 @@ public class JpaDeviceDaoTest {
     private JpaDeviceDao underTest;
 
     @Test
-    void testSave() {
+    void testCreate() {
         
         Device device = new Device();
-        device.setName("UnderSaveTestDeviceName");
-        device.setBrand("UnderSaveTestDeviceBrand");
+        device.setName("UnderCreateTestDeviceName");
+        device.setBrand("UnderCreateTestDeviceBrand");
               
     
-        Device actual = underTest.save(device);
+        Device actual = underTest.create(device);
         Device expected = underTest.findById(device.getId());
 
         assertThat(actual).isEqualTo(expected);
@@ -35,9 +35,9 @@ public class JpaDeviceDaoTest {
         Device device = new Device();
         device.setName("UnderDeleteTestDeviceName");
         device.setBrand("UnderDeleteTestDeviceBrand");
-        UUID id = underTest.save(device).getId();
+        UUID id = underTest.create(device).getId();
 
-        underTest.delete(id);
+        underTest.deleteById(id);
 
         Device actual = underTest.findById(device.getId());
 
@@ -49,7 +49,7 @@ public class JpaDeviceDaoTest {
         Device deviceA = new Device();
         deviceA.setName("UnderTestFilterDeviceAName");
         deviceA.setBrand("UnderTestFilterDeviceABrand");
-        underTest.save(deviceA);
+        underTest.create(deviceA);
        
         int actual = underTest.filter(null, "UnderTestFilterDeviceA").size();
         int expected = 1;
@@ -61,11 +61,11 @@ public class JpaDeviceDaoTest {
     @Test
     void testFindAll() {
 
-        int sizeBeforeSave = underTest.findAll().size();
-        underTest.save(new Device(null,"UnderTestFindAllDeviceAName","UnderTestFindAllDeviceABrand", null));
+        int sizeBeforeCreate = underTest.findAll().size();
+        underTest.create(new Device(null,"UnderTestFindAllDeviceAName","UnderTestFindAllDeviceABrand", null));
     
         int actual = underTest.findAll().size();
-        int expected = sizeBeforeSave+1;
+        int expected = sizeBeforeCreate+1;
 
         assertThat(actual).isEqualTo(expected);
 
@@ -78,7 +78,7 @@ public class JpaDeviceDaoTest {
         device.setBrand("UnderFindByIdTestDeviceBrand");
         
     
-        Device actual =  underTest.save(device);
+        Device actual =  underTest.create(device);
         Device expected = underTest.findById(actual.getId());
 
         assertThat(actual).isEqualTo(expected);
@@ -88,10 +88,10 @@ public class JpaDeviceDaoTest {
 
     @Test
     void testUpdate() {
-        Device deviceToSave = new Device();
-        deviceToSave.setName("UnderUpdateTestDeviceName");
-        deviceToSave.setBrand("UnderUpdateTestDeviceBrand");    
-        Device deviceToUpdate =  underTest.save(deviceToSave);
+        Device deviceToCreate = new Device();
+        deviceToCreate.setName("UnderUpdateTestDeviceName");
+        deviceToCreate.setBrand("UnderUpdateTestDeviceBrand");    
+        Device deviceToUpdate =  underTest.create(deviceToCreate);
 
         
         String expectedName = "UnderUpdateTestDeviceNewName";

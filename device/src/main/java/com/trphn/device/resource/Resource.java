@@ -36,7 +36,7 @@ public interface Resource<T> {
     ResponseEntity<String> deleteById(@PathVariable UUID id);
     
     @GetMapping(value = "/filter/custom")
-    ResponseEntity<Collection<T>> search(
+    ResponseEntity<Collection<T>> filter(
         @RequestParam(value = "brand", required = false) String brand,
         @RequestParam(value = "name", required = false) String name
     );

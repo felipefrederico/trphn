@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 public interface IService<T> { 
-    T save(T t);
+    T create(T t);
     T findById(UUID id);
     Collection<T> findAll();
     void deleteById(UUID id);
