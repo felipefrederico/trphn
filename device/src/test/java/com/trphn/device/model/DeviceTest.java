@@ -15,7 +15,7 @@ public class DeviceTest {
         UUID expectedId = UUID.randomUUID();
         String expectedName = "underTest Name";
         String expectedBrand = "underTest Brand";
-        Instant notExpectedCreationTime = Instant.now();
+        Instant notExpectedCreationTime = null;
         underTest = new Device(expectedId, expectedName, expectedBrand, notExpectedCreationTime);
 
         assertThat( underTest.getId() ).isEqualTo(expectedId);

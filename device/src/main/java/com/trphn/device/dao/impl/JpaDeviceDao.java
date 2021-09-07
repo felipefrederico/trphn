@@ -22,16 +22,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class JpaDeviceDao implements Dao<Device>{
 
-    @PersistenceContext
+    @PersistenceContext()
     private EntityManager entityManager;
 
     @Override
     @Transactional
     public Device save(Device device) {
        log.info("JpaDeviceDao - Save {}", device);
-
-       entityManager.persist(device);
-       entityManager.flush();
+        entityManager.persist(device);
+        entityManager.flush();
        return device;
     }
 
@@ -79,22 +78,22 @@ public class JpaDeviceDao implements Dao<Device>{
         String query = "select D from Device D ";
         String condition = "where ";
 
-        if(!brand.isEmpty()){
-            query += condition + "D.brand like :brand ";
+        if(brand!=null){
+            query += condition + "D.brand like CONCAT('%',:brand,'%')";
             condition = "and ";
         }
 
-        if(!name.isEmpty()){
-            query += condition + "D.name like :name ";
+        if(name!=null){
+            query += condition + "D.name like CONCAT('%',:name,'%')";
         }
 
         Query q = entityManager.createQuery(query);
         
-        if(!brand.isEmpty()){
+        if(brand!=null){
            q.setParameter("brand", brand);
         }
 
-        if(!name.isEmpty()){
+        if(name!=null){
             q.setParameter("name", name);
         }
 

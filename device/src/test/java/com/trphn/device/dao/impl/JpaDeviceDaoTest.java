@@ -17,54 +17,96 @@ public class JpaDeviceDaoTest {
     private JpaDeviceDao underTest;
 
     @Test
-    void testDelete() {
+    void testSave() {
+        
+        Device device = new Device();
+        device.setName("UnderSaveTestDeviceName");
+        device.setBrand("UnderSaveTestDeviceBrand");
+              
     
+        Device actual = underTest.save(device);
+        Device expected = underTest.findById(device.getId());
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void testDelete() {
+        Device device = new Device();
+        device.setName("UnderDeleteTestDeviceName");
+        device.setBrand("UnderDeleteTestDeviceBrand");
+        UUID id = underTest.save(device).getId();
+
+        underTest.delete(id);
+
+        Device actual = underTest.findById(device.getId());
+
+        assertThat(actual).isNull();
     }   
 
     @Test
     void testFilter() {
+        Device deviceA = new Device();
+        deviceA.setName("UnderTestFilterDeviceAName");
+        deviceA.setBrand("UnderTestFilterDeviceABrand");
+        underTest.save(deviceA);
+       
+        int actual = underTest.filter(null, "UnderTestFilterDeviceA").size();
+        int expected = 1;
+
+        assertThat(actual).isEqualTo(expected);
 
     }
 
     @Test
     void testFindAll() {
 
+        int sizeBeforeSave = underTest.findAll().size();
+        underTest.save(new Device(null,"UnderTestFindAllDeviceAName","UnderTestFindAllDeviceABrand", null));
+    
+        int actual = underTest.findAll().size();
+        int expected = sizeBeforeSave+1;
+
+        assertThat(actual).isEqualTo(expected);
+
     }
 
     @Test
     void testFindById() {
-
-    }
-
-    @Test
-    void testSave() {
-        
         Device device = new Device();
-        device.setName("UnderSaveTestDeviceName");
-        device.setBrand("UnderSaveTestDeviceBrand");
+        device.setName("UnderFindByIdTestDeviceName");
+        device.setBrand("UnderFindByIdTestDeviceBrand");
         
-        
-        underTest.save(device);
-
-        int actual = underTest.findAll().size();
-        int expected = 1;
+    
+        Device actual =  underTest.save(device);
+        Device expected = underTest.findById(actual.getId());
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    
 
     @Test
     void testUpdate() {
-        Device device = new Device();
-        device.setName("UnderDeleteTestDeviceName");
-        device.setBrand("UnderDeleteTestDeviceBrand");
+        Device deviceToSave = new Device();
+        deviceToSave.setName("UnderUpdateTestDeviceName");
+        deviceToSave.setBrand("UnderUpdateTestDeviceBrand");    
+        Device deviceToUpdate =  underTest.save(deviceToSave);
+
         
-        UUID id = underTest.save(device).getId();
+        String expectedName = "UnderUpdateTestDeviceNewName";
+        String expectedBrand = "UnderUpdateTestDeviceNewBrand";
+        
+        deviceToUpdate.setName(expectedName);
+        deviceToUpdate.setBrand(expectedBrand);
+        underTest.update(deviceToUpdate);
 
-        underTest.delete(id);
+        Device updatedDevice = underTest.findById(deviceToUpdate.getId());
 
-        int actual = underTest.findAll().size();
-        int expected = underTest.findAll().size()-1;
+        String actualName = updatedDevice.getName();
+        String actialBrand = updatedDevice.getBrand();
 
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actualName).isEqualTo(expectedName);
+        assertThat(expectedBrand).isEqualTo(actialBrand);
     }
 }
