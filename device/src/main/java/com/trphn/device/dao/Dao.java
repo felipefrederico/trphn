@@ -8,5 +8,6 @@ public interface Dao<T> {
     Collection<T> findAll();
     T findById(UUID id);
     T update(T t);
-    void delete(T t);
+    void delete(UUID t);
+    Collection<T> filter(String brand, String name);
 }
