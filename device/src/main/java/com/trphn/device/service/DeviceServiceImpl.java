@@ -1,4 +1,4 @@
-package com.trphn.device.service.impl;
+package com.trphn.device.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,16 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Collection;
 import java.util.UUID;
 
-import com.trphn.device.dao.Dao;
-import com.trphn.device.model.Device;
-import com.trphn.device.service.IService;
+import com.trphn.core.dao.Dao;
+import com.trphn.core.model.Device;
+import com.trphn.core.service.IService;
 
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class DeviceService implements IService<Device>{
+public class DeviceServiceImpl implements IService<Device> {
     private final Dao<Device> deviceDao;
 
     @Override

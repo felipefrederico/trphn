@@ -1,8 +1,8 @@
 package com.trphn.device.resource.impl;
 
-import com.trphn.device.model.Device;
+import com.trphn.core.model.Device;
+import com.trphn.core.service.IService;
 import com.trphn.device.resource.Resource;
-import com.trphn.device.service.IService;
 
 import java.lang.reflect.Field;
 import java.util.Collection;

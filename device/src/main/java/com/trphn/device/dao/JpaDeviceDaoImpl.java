@@ -1,4 +1,4 @@
-package com.trphn.device.dao.impl;
+package com.trphn.device.dao;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
-import com.trphn.device.dao.Dao;
+import com.trphn.core.dao.Dao;
+import com.trphn.core.model.Device;
 import com.trphn.device.exceptions.DeviceNotFoundException;
-import com.trphn.device.model.Device;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class JpaDeviceDao implements Dao<Device>{
+public class JpaDeviceDaoImpl implements Dao<Device> {
 
     @PersistenceContext()
     private EntityManager entityManager;
