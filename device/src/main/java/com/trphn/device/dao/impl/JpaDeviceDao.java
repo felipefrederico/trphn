@@ -67,7 +67,7 @@ public class JpaDeviceDao implements Dao<Device>{
         Optional<Device> device = Optional.ofNullable( findById(id) );
         if (device.isEmpty()) throw new DeviceNotFoundException("Device Not Found");
 
-        entityManager.remove(device);
+        entityManager.remove(device.get());
         entityManager.flush();
     }
 
