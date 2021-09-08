@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import com.trphn.device.dao.Dao;
+import com.trphn.device.exceptions.DeviceNotFoundException;
 import com.trphn.device.model.Device;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +37,7 @@ public class JpaDeviceDao implements Dao<Device>{
     public Device update(Device device) {
         log.info("JpaDeviceDao - update {}", device);
         Optional<Device> managedDevice = Optional.ofNullable( findById(device.getId()) );
-        
-        if (managedDevice.isEmpty()) throw new RuntimeException("Device Not Found");
+        if (managedDevice.isEmpty()) throw new DeviceNotFoundException("Device Not Found");
 
         managedDevice.get().setName(device.getName());
         managedDevice.get().setBrand(device.getBrand());
@@ -64,7 +64,9 @@ public class JpaDeviceDao implements Dao<Device>{
     @Transactional
     public void deleteById(UUID id) {
         log.info("JpaDeviceDao - delete {}", id);
-        Device device = findById(id);
+        Optional<Device> device = Optional.ofNullable( findById(id) );
+        if (device.isEmpty()) throw new DeviceNotFoundException("Device Not Found");
+
         entityManager.remove(device);
         entityManager.flush();
     }
