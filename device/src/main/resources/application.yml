@@ -1,0 +1,42 @@
+server:
+  port: 8082
+  error:
+    include-stacktrace: never
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8081/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+spring:
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+        enabled: true
+  application:
+    name: device
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect        
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:h2:mem:device
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+
+springdoc:
+  swagger-ui:
+    path: /swagger_ui.html

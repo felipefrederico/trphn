@@ -1,0 +1,4 @@
+com/trphn/core/model/Device.class
+com/trphn/core/service/IService.class
+com/trphn/core/dao/Dao.class
+com/trphn/core/model/Device$DeviceBuilder.class
