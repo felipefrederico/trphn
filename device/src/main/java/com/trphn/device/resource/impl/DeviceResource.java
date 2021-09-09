@@ -1,8 +1,8 @@
 package com.trphn.device.resource.impl;
 
-import com.trphn.device.model.Device;
+import com.trphn.core.model.Device;
+import com.trphn.core.service.IService;
 import com.trphn.device.resource.Resource;
-import com.trphn.device.service.IService;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -50,13 +50,13 @@ public class DeviceResource implements Resource<Device>{
     }
 
     @Override
-    public ResponseEntity<Device> patch(UUID id, Map<Object, Object> fields) {
+    public ResponseEntity<Device> patch(UUID id, Map<String, String> fields) {
         log.info("DeviceResourceImpl - patch {}", id.toString());
         Device device = service.findById(id);
         if (device!=null){
             fields.forEach((k,v)->{
-                Field field = ReflectionUtils.findField(Device.class, (String) k);
-                ReflectionUtils.setField(field, device, v);
+                if (k.equals("name") && v!=null) device.setName(v);
+                if (k.equals("brand") && v!=null) device.setBrand(v);
             });
         }
         return new ResponseEntity<>(service.update(device), HttpStatus.ACCEPTED );

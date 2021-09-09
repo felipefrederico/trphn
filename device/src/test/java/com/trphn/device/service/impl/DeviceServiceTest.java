@@ -2,8 +2,9 @@ package com.trphn.device.service.impl;
 
 import java.util.UUID;
 
-import com.trphn.device.dao.Dao;
-import com.trphn.device.model.Device;
+import com.trphn.core.dao.Dao;
+import com.trphn.core.model.Device;
+import com.trphn.device.service.DeviceServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -22,7 +23,7 @@ public class DeviceServiceTest {
     private Dao<Device> deviceDao;
 
     @InjectMocks
-    private DeviceService underTest;
+    private DeviceServiceImpl underTest;
 
     @Test
     void testDeleteById() {

@@ -3,6 +3,7 @@ package com.trphn.device.model;
 import java.time.Instant;
 import java.util.UUID;
 
+import com.trphn.core.model.Device;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 

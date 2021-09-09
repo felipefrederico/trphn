@@ -30,7 +30,7 @@ public interface Resource<T> {
     ResponseEntity<T> update(@RequestBody T t);
 
     @PatchMapping(value = "/{id}")
-    ResponseEntity<T> patch(@PathVariable UUID id, @RequestBody Map<Object, Object> fields);
+    ResponseEntity<T> patch(@PathVariable UUID id, @RequestBody Map<String, String> fields);
        
     @DeleteMapping(value = "/{id}")
     ResponseEntity<String> deleteById(@PathVariable UUID id);

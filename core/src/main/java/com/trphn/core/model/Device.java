@@ -1,4 +1,4 @@
-package com.trphn.device.model;
+package com.trphn.core.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "Device")
 @Builder
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

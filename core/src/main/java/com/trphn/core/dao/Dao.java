@@ -1,4 +1,4 @@
-package com.trphn.device.dao;
+package com.trphn.core.dao;
 
 import java.util.Collection;
 import java.util.UUID;

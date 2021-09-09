@@ -1,6 +1,6 @@
-package com.trphn.device.dao.impl;
+package com.trphn.device.dao;
 
-import com.trphn.device.model.Device;
+import com.trphn.core.model.Device;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class JpaDeviceDaoTest {
 
     @Autowired
-    private JpaDeviceDao underTest;
+    private JpaDeviceDaoImpl underTest;
 
     @Test
     void testCreate() {
